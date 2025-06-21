@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.api.weather import router as hello_router
+from app.api.weather import router as hello_router
 import os
 
 app = FastAPI()

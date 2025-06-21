@@ -55,3 +55,6 @@ backend/.env
 .DS_Store
 *.log
 
+# Python bytecode cache
+__pycache__/
+*.pyc

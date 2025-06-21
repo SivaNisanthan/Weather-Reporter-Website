@@ -38,11 +38,14 @@ async def get_current_weather(city: str = DEFAULT_CITY) -> Dict:
 
             current = data.get("current", {})
             return {
-                "message": "Hello Nisanthan",
-                "temperature": current.get("temp_c"),
+                "city": data['location'].get("name"),
+                "country": data['location'].get("country"),
+                "temperature_c": current.get("temp_c"),
                 "humidity": current.get("humidity"),
-                "wind_speed": current.get("wind_kph"),
-                "uv_index": current.get("uv")
+                "wind_speed_kph": current.get("wind_kph"),
+                "uv_index": current.get("uv"),
+                "condition": current.get("condition", {}).get("text"),
+                "icon": current.get("condition", {}).get("icon")
             }
 
     except httpx.HTTPError as e:
