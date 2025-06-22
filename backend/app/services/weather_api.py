@@ -38,11 +38,13 @@ async def get_current_weather(city: str = DEFAULT_CITY) -> Dict:
 
             current = data.get("current", {})
             return {
+                "date": current.get("last_updated"),
                 "city": data['location'].get("name"),
                 "country": data['location'].get("country"),
                 "temperature_c": current.get("temp_c"),
                 "humidity": current.get("humidity"),
                 "wind_speed_kph": current.get("wind_kph"),
+                "wind_direction": current.get("wind_dir"),
                 "uv_index": current.get("uv"),
                 "condition": current.get("condition", {}).get("text"),
                 "icon": current.get("condition", {}).get("icon")

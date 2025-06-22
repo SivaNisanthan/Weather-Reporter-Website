@@ -1,0 +1,23 @@
+.wind-card {
+    background-color: #6e959a;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+    .wind-card:hover {
+        transform: scale(1.02);
+    }
+    
+  .wind-speed {
+    font-size: 1.5rem;
+    color: #0288d1;
+  }
+  
+  .wind-direction {
+    font-size: 1rem;
+    color: #555;
+  }
+  

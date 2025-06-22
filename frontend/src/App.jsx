@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import WeatherCard from './components/WeatherCard';
 import './App.css';
 
 function App() {
@@ -16,22 +15,16 @@ function App() {
   
 
   return (
-    <>
-      <h1>Weather Report</h1>
+    <div className="App">
+      <h1>🌦️ Weather Report</h1>
+
+      {/* ✅ Render WeatherCard only when data is loaded */}
       {weather ? (
-        <div className="card">
-          <h2>{weather.city}, {weather.country}</h2>
-          <p>🌤️ Condition: {weather.condition}</p>
-          <p>🌡️ Temperature: {weather.temperature_c}°C</p>
-          <p>💧 Humidity: {weather.humidity}%</p>
-          <p>🌬️ Wind Speed: {weather.wind_speed_kph} km/h</p>
-          <p>☀️ UV Index: {weather.uv_index}</p>
-          <img src={weather.icon} alt={weather.condition} />
-        </div>
+        <WeatherCard weather={weather} />
       ) : (
         <p>Loading weather data...</p>
       )}
-    </>
+    </div>
   );
   
 }
