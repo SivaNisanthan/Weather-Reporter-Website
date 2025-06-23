@@ -1,24 +1,29 @@
 from fastapi import FastAPI
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.weather import router as hello_router
+from app.routers.weather import router as hello_router
 import os
 
 app = FastAPI()
 
-# 🌍 Dynamically allow origins depending on environment
+#Dynamically allow origins depending on environment
 ENV = os.getenv("ENV", "development")
 
 if ENV == "development":
     origins = [
-        "http://localhost:5173",  # Vite frontend dev
-        "http://127.0.0.1:5173",
+        os.getenv("DEVELOPMENT_FRONT_END_URL"),  # Vite frontend dev
+        os.getenv("DEVELOPMENT_FRONT_END_IP"),
     ]
 else:  # production
     origins = [
-        "https://your-production-frontend.com"  # Replace with your frontend domain
+        os.getenv("PRODUCTION_FRONT_END_URL")   
     ]
 
-# 🚪 Add CORS middleware
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import WeatherCard from './components/WeatherCard';
 import './App.css';
+import Loading from './components/Loading';
+import Header from './components/Header';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -8,6 +11,9 @@ function App() {
   const [searchInput, setSearchInput] = useState('');        // Text in the search box
   const [suggestions, setSuggestions] = useState([]);        // Filtered city list
   const [city, setCity] = useState('Colombo');               // Selected city
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+  // console.log("ENV var" + import.meta.env.VITE_API_BASE_URL);
 
   const cities = ['Colombo','Gampaha',
     'Kalutara',
@@ -29,15 +35,15 @@ function App() {
     'Ratnapura',
     'Kegalle'
   ];
-
+  
   useEffect(() => {
-    fetch(`http://localhost:8000/api/weather?city=${city}`)
+    fetch(`${baseUrl}/api/weather?city=${city}`)
       .then((res) => res.json())
       .then((data) => setWeather(data))
       .catch((error) => console.error("Failed to load weather data", error));
-  }, [city]); // ✅ Re-run whenever `city` changes
+  }, [city]); // Re-run whenever `city` changes
 
-    // 🔵 Handle input change (filter cities)
+    //Handle input change (filter cities)
     const handleInputChange = (e) => {
       const value = e.target.value;
       setSearchInput(value);
@@ -47,7 +53,7 @@ function App() {
       setSuggestions(filtered);
     };
   
-    // 🟢 When user clicks a suggestion
+    //When user clicks a suggestion
     const handleSearch = (selectedCity) => {
       setCity(selectedCity);
       setSearchInput('');
@@ -57,35 +63,22 @@ function App() {
 
     return (
       <div className="App">
-        <h1>Weather Report</h1>
-  
-        {/* 🔍 Search Input */}
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search a city..."
-            value={searchInput}
-            onChange={handleInputChange}
-          />
-          {suggestions.length > 0 && (
-            <ul className="suggestions">
-              {suggestions.map((c, i) => (
-                <li key={i} onClick={() => handleSearch(c)}>
-                  {c}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-  
-        {/* ✅ Weather Display */}
         {weather ? (
-          <WeatherCard weather={weather} />
+          <>
+            <Header
+              searchInput={searchInput}
+              suggestions={suggestions}
+              handleInputChange={handleInputChange}
+              handleSearch={handleSearch}
+            />
+            <WeatherCard weather={weather} />
+          </>
         ) : (
-          <p>Loading weather data...</p>
+          <Loading />
         )}
       </div>
     );
+    
   
 }
 

@@ -12,7 +12,7 @@ function UVIndex({ value }) {
 
   return (
     <div className="uv-card">
-      <h3>☀️ UV Index</h3>
+      <h3>UV Index</h3>
       <p className="uv-value">{value}</p>
       <p className="uv-risk">Risk Level: {getRiskLevel(value)}</p>
     </div>
