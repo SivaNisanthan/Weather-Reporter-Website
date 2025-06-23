@@ -3,6 +3,7 @@ import WeatherCard from './components/WeatherCard';
 import './App.css';
 import Loading from './components/Loading';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -43,6 +44,28 @@ function App() {
       .catch((error) => console.error("Failed to load weather data", error));
   }, [city]); // Re-run whenever `city` changes
 
+  // Step 2: Auto-fetch when WeatherAPI likely updates
+  useEffect(() => {
+    if (!weather) return;
+
+    const fetchWeather = () => {
+      fetch(`${baseUrl}/api/weather?city=${city}`)
+        .then(res => res.json())
+        .then(data => setWeather(data))
+        .catch(err => console.error("Auto-refresh fetch failed", err));
+    };
+
+    const lastUpdated = new Date(weather.date_last_updated);
+    const currentTime = new Date(weather.date_current);
+    const nextUpdate = new Date(lastUpdated.getTime() + 15 * 60 * 1000);
+    const delayMs = nextUpdate - currentTime + 60 * 1000;
+
+    if (delayMs > 0) {
+      const timeoutId = setTimeout(fetchWeather, delayMs);
+      return () => clearTimeout(timeoutId); // cleanup
+    }
+  }, [weather, city]);
+
     //Handle input change (filter cities)
     const handleInputChange = (e) => {
       const value = e.target.value;
@@ -72,6 +95,7 @@ function App() {
               handleSearch={handleSearch}
             />
             <WeatherCard weather={weather} />
+            <Footer lastUpdated={weather.date_last_updated} />
           </>
         ) : (
           <Loading />
