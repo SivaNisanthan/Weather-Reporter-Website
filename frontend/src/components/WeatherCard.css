@@ -1,0 +1,43 @@
+/* components/WeatherCard.css */
+.weather-card {
+    background-color: #bbd4eb;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 15px;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .weather-card h2 {
+    margin-bottom: 0.1rem;
+    font-size: 1.7rem;
+    color: #333;
+  }
+  
+  .weather-card p {
+    margin: 0.1rem 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .weather-card img {
+    width: 64px;
+    height: 64px;
+    margin-top: 0.5rem;
+  }
+  
+  .metrics-container {
+    display: flex;
+    flex-wrap: wrap;           /* Allows wrapping if screen is small */
+    justify-content: center;   /* Center all cards horizontally */
+    gap: 1rem;                 /* Space between cards */
+    margin-top: 1rem;
+  }
+  
+  .metrics-container > div {
+    flex: 1 1 180px; /* allows responsiveness with min width */
+    min-width: 180px;
+  }
+  

@@ -1,0 +1,21 @@
+/* components/Temperature.css */
+.temperature-card {
+    background-color: #d28d15;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .temperature-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .temperature-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #d35400;
+  }
+  
