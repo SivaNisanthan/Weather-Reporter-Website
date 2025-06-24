@@ -19,7 +19,7 @@ if ENV == "development":
         os.getenv("DEVELOPMENT_FRONT_END_IP"),
     ]
 else:  # production
-    origins = ["*"] 
+    origins = ["https://weather-reporter-website-lffj.vercel.app"] 
 
 # Add CORS middleware
 app.add_middleware(
