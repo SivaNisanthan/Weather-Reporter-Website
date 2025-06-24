@@ -14,8 +14,8 @@ function WeatherCard({ weather }) {
       {/* Group metrics in a flex container */}
       <div className="metrics-container">
         <Temperature value={weather.temperature_c} />
-        <Humidity value={weather.humidity} />
         <Wind speed={weather.wind_speed_kph} direction={weather.wind_direction} />
+        <Humidity value={weather.humidity} />
         <UVIndex value={weather.uv_index} />
       </div>
     </div>

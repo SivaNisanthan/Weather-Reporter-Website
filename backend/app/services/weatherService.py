@@ -1,17 +1,16 @@
 import os
 import httpx
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from typing import Dict
 
 # Load environment variables from .env
-load_dotenv()
+# load_dotenv()
 
 # Read the API key from environment variables
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 
 # Base URL of the weather API
-WEATHER_API_URL = "http://api.weatherapi.com/v1/current.json"
-
+WEATHER_API_URL = os.getenv("WEATHER_API_URL")
 # City to fetch weather for
 # DEFAULT_CITY = "Colombo"
 
@@ -38,7 +37,8 @@ async def get_current_weather(city: str) -> Dict:
 
             current = data.get("current", {})
             return {
-                "date": current.get("last_updated"),
+                "date_current": data.get("location", {}).get("localtime"),
+                "date_last_updated": current.get("last_updated"),
                 "city": data['location'].get("name"),
                 "country": data['location'].get("country"),
                 "temperature_c": current.get("temp_c"),

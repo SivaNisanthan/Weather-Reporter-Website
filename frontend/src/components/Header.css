@@ -1,0 +1,32 @@
+.header-container {
+    text-align: center;
+    /* margin-bottom: 10rem; */
+  }
+  
+  .search-container input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 220px;
+    margin-top: 0.5rem;
+    background: #bbd4eb;
+    color: #080808;
+  }
+  
+  .suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem auto;
+    max-height: 5.5rem;
+    overflow-y: auto;
+    background: #bbd4eb;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(244, 241, 241, 0.1);
+    max-width: 220px;
+  }
+  
+  .suggestions li {
+    padding: 0.5rem;
+    color: #080808;
+    cursor: pointer;
+  }
+  

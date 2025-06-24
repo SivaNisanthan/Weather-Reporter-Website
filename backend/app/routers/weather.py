@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query
-from app.services.weather_api import get_current_weather
+from app.services.weatherService import get_current_weather
 
 router = APIRouter()
 
