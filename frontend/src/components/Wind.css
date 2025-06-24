@@ -1,23 +1,244 @@
+/* Wind.css - Enhanced Weather Component Styles */
+
 .wind-card {
-    background-color: #6e959a;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 24px;
+  margin: 16px 0;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.wind-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.wind-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.wind-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.wind-icon {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+.wind-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.wind-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 24px;
+}
+
+.wind-speed-display {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.speed-number {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.speed-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.speed-unit span:first-child {
+  font-size: 1rem;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.intensity-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.wind-compass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.compass-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.compass-directions {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.compass-directions span {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.dir-n { 
+  top: -2px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+}
+
+.dir-e { 
+  right: -2px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+}
+
+.dir-s { 
+  bottom: -2px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+}
+
+.dir-w { 
+  left: -2px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+}
+
+.wind-arrow {
+  font-size: 2.5rem;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.7; 
+  }
+}
+
+.direction-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.direction-abbr {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.direction-full {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.wind-strength-bar {
+  margin-top: 20px;
+}
+
+.strength-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.strength-indicator {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.strength-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .wind-main {
+    flex-direction: column;
+    gap: 20px;
   }
   
-    .wind-card:hover {
-        transform: scale(1.02);
-    }
-    
-  .wind-speed {
-    font-size: 1.5rem;
-    color: #0288d1;
+  .speed-number {
+    font-size: 3rem;
   }
   
-  .wind-direction {
-    font-size: 1rem;
-    color: #555;
+  .compass-ring {
+    width: 70px;
+    height: 70px;
   }
   
+  .wind-card {
+    padding: 20px;
+    margin: 12px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .wind-card {
+    padding: 16px;
+  }
+  
+  .speed-number {
+    font-size: 2.5rem;
+  }
+  
+  .compass-ring {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .wind-arrow {
+    font-size: 2rem;
+  }
+}

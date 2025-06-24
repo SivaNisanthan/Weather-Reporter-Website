@@ -1,24 +1,173 @@
-.uv-card {
-    background-color: #cbab2d;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+/* UVIndex.css - Simple Weather Component Styles */
 
-    .uv-card:hover {
-        transform: scale(1.02);
-    }
+.uv-card {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  padding: 20px;
+  margin: 16px auto;
+  border-radius: 16px;
+  color: #2d3748;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.uv-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.uv-icon {
+  font-size: 1.5rem;
+}
+
+.uv-title-section h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.uv-subtitle {
+  font-size: 0.85rem;
+  color: #718096;
+  font-weight: 400;
+}
+
+.uv-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.uv-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.uv-value-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.uv-value {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.uv-scale {
+  font-size: 0.8rem;
+  color: #718096;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+
+.uv-meter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.uv-meter {
+  display: flex;
+  gap: 4px;
+  align-items: end;
+  height: 60px;
+  width: 100%;
+  max-width: 240px;
+  justify-content: center;
+}
+
+.meter-bar {
+  width: 6px;
+  height: 100%;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.meter-bar.active {
+  height: 100%;
+}
+
+.meter-bar:not(.active) {
+  height: 30%;
+  opacity: 0.3;
+}
+
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 240px;
+  font-size: 0.75rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.uv-level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.level-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .uv-card {
+    max-width: 100%;
+    margin: 16px 8px;
+  }
+  
+  .uv-main-row {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .uv-card {
+    padding: 16px;
+    margin: 16px 8px;
+  }
   
   .uv-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #e67e22;
+    font-size: 2.5rem;
   }
   
-  .uv-risk {
-    font-size: 1rem;
-    color: #c0392b;
+  .uv-top-row {
+    gap: 12px;
   }
   
+  .uv-meter {
+    height: 50px;
+    gap: 3px;
+  }
+  
+  .meter-bar {
+    width: 4px;
+  }
+  
+  .uv-level-badge {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+}

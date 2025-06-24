@@ -1,21 +1,361 @@
+/* App.css - Enhanced Weather App Theme - Full Width */
+
+/* Global app container - Updated for full width */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100vw; /* Use full viewport width */
+  max-width: none; /* Remove max-width limitation */
+  margin: 0; /* Remove auto margins */
+  padding: 1rem; /* Reduce padding */
   text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  background-size: 400% 400%;
+  /* animation: gradientShift 15s ease infinite; */
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* Alternative option - if you want to keep some max-width but make it larger */
+/*
+#root {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  position: relative;
+  overflow-x: hidden;
+}
+*/
+
+/* Animated background pattern */
+#root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 2px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.06) 2px, transparent 2px);
+  background-size: 60px 60px, 80px 80px, 100px 100px;
+  animation: backgroundFloat 20s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.App {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  width: 100%; /* Ensure App takes full width */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Weather card container enhancements - Updated for full width */
+.weather-card-container {
+  width: 100%;
+  max-width: none; /* Remove any max-width constraints */
+  display: flex;
+  justify-content: center;
+  animation: slideUp 0.6s ease-out;
+}
+
+/* If you want the weather card itself to be wider */
+.weather-card {
+  width: 100%;
+  max-width: 1400px; /* Increase this value or remove it entirely */
+}
+
+/* Rest of your existing styles remain the same... */
+
+/* Logo styling enhancements */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
-  transition: filter 300ms;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Enhanced search container */
+.search-container {
+  margin: 2rem 0;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.search-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.search-container input {
+  padding: 1rem 1.5rem;
+  width: 300px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+              0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  color: #333;
+  font-weight: 500;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.search-container input::placeholder {
+  color: #666;
+  font-weight: 400;
+}
+
+.search-container input:focus {
+  width: 320px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
+              0 4px 16px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+  border-color: rgba(102, 126, 234, 0.5);
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Enhanced suggestions dropdown */
+.suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem auto 0;
+  max-width: 320px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
+              0 4px 16px rgba(0, 0, 0, 0.1);
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: dropdownSlide 0.3s ease-out;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.suggestions li {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.suggestions li:last-child {
+  border-bottom: none;
+}
+
+.suggestions li:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  color: #667eea;
+  transform: translateX(4px);
+}
+
+.suggestions li::before {
+  content: '📍';
+  margin-right: 0.5rem;
+  opacity: 0.6;
+}
+
+.suggestions li:hover::before {
+  opacity: 1;
+}
+
+/* Custom scrollbar for suggestions */
+.suggestions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Card enhancements */
+.card {
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced text styling */
+.read-the-docs {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: color 0.3s ease;
+}
+
+.read-the-docs:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Loading state enhancements */
+.App.loading {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Updated responsive design for full width */
+@media (max-width: 768px) {
+  #root {
+    padding: 0.5rem; /* Reduce padding on mobile */
+  }
+  
+  .App {
+    gap: 1.5rem;
+  }
+  
+  .search-container input {
+    width: 280px;
+    padding: 0.875rem 1.25rem;
+    font-size: 1rem;
+  }
+  
+  .search-container input:focus {
+    width: 300px;
+  }
+  
+  .suggestions {
+    max-width: 300px;
+    max-height: 200px;
+  }
+  
+  .suggestions li {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .logo {
+    height: 4em;
+    padding: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  #root {
+    padding: 0.25rem; /* Minimal padding on small screens */
+  }
+  
+  .search-container input {
+    width: 260px;
+    padding: 0.75rem 1rem;
+  }
+  
+  .search-container input:focus {
+    width: 280px;
+  }
+  
+  .suggestions {
+    max-width: 280px;
+  }
+}
+
+/* All your existing animations remain the same */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes backgroundFloat {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  33% {
+    transform: translate(30px, -30px);
+  }
+  66% {
+    transform: translate(-20px, 20px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes logo-spin {
@@ -33,52 +373,31 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* Focus states for accessibility */
+.search-container input:focus,
+.suggestions li:focus {
+  outline: 2px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
 }
 
-.read-the-docs {
-  color: #888;
-}
-
-.search-container {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-.search-container input {
-  padding: 0.5rem;
-  width: 200px;
-  font-size: 1rem;
-}
-
-.suggestions {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem auto;
-  max-width: 220px;
-  background: #1a1818;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  max-height: 5.5rem; /* around 2 items (2 x 2.5rem + padding) */
-  overflow-y: auto;
-}
-
-.suggestions li {
-  padding: 0.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.suggestions li:hover {
-  background: #e0e0e0;
-}
-
-.suggestions::-webkit-scrollbar {
-  width: 6px;
-}
-
-.suggestions::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 10px;
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .search-container input {
+    background: white;
+    border: 2px solid #000;
+  }
+  
+  .suggestions {
+    background: white;
+    border: 2px solid #000;
+  }
+  
+  .suggestions li {
+    color: #000;
+  }
+  
+  .suggestions li:hover {
+    background: #000;
+    color: white;
+  }
 }

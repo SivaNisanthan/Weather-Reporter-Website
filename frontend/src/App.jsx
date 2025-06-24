@@ -58,7 +58,7 @@ function App() {
     const lastUpdated = new Date(weather.date_last_updated);
     const currentTime = new Date(weather.date_current);
     const nextUpdate = new Date(lastUpdated.getTime() + 15 * 60 * 1000);
-    const delayMs = nextUpdate - currentTime + 60 * 1000;
+    const delayMs = nextUpdate - currentTime + 30 * 1000;
 
     if (delayMs > 0) {
       const timeoutId = setTimeout(fetchWeather, delayMs);

@@ -1,19 +1,286 @@
+/* Base card styling */
 .humidity-card {
-    background-color: #37a3cd;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
+  background: linear-gradient(135deg, #37a3cd 0%, #2980b9 100%);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(55, 163, 205, 0.3), 
+              0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
 
-    .humidity-card:hover {
-        transform: scale(1.02);
-    }
+.humidity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.humidity-card:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 12px 40px rgba(55, 163, 205, 0.4), 
+              0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Header styling */
+.humidity-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.humidity-title-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.humidity-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.humidity-title {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.humidity-level-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 4px rgba(109, 47, 47, 0.1);
+}
+
+/* Humidity level colors */
+.humidity-level-low {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.humidity-level-comfortable {
+  background: rgba(76, 175, 80, 0.2);
+  color: #74bc77;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.humidity-level-high {
+  background: rgba(33, 150, 243, 0.2);
+  color: #9fc6ee;
+  border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.humidity-level-very-high {
+  background: rgba(156, 39, 176, 0.2);
+  color: #9c27b0;
+  border: 1px solid rgba(156, 39, 176, 0.3);
+}
+
+/* Main value styling */
+.humidity-value-section {
+  margin-bottom: 1.5rem;
+}
+
+.humidity-value {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.humidity-percentage {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+/* Progress bar styling */
+.humidity-progress-container {
+  margin: 1rem 0;
+}
+
+.humidity-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.humidity-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+  border-radius: 10px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.humidity-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 100%);
+  animation: shimmer 2s infinite;
+}
+
+.humidity-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+}
+
+/* Droplet animation */
+.humidity-droplets {
+  height: 32px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 4px;
+  margin: 1rem 0;
+}
+
+.humidity-droplet {
+  width: 3px;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+  border-radius: 2px;
+  animation: dropletPulse 2s infinite ease-in-out;
+}
+
+.humidity-droplet:nth-child(1) { animation-delay: 0s; }
+.humidity-droplet:nth-child(2) { animation-delay: 0.3s; }
+.humidity-droplet:nth-child(3) { animation-delay: 0.6s; }
+.humidity-droplet:nth-child(4) { animation-delay: 0.9s; }
+.humidity-droplet:nth-child(5) { animation-delay: 1.2s; }
+
+/* Additional info section */
+.humidity-info {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.humidity-info-value {
+  font-weight: 600;
+  color: white;
+}
+
+/* Floating elements */
+.humidity-float-1 {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: float 3s ease-in-out infinite;
+}
+
+.humidity-float-2 {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1rem;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  animation: float 4s ease-in-out infinite reverse;
+}
+
+/* Animations */
+@keyframes dropletPulse {
+  0%, 100% {
+    height: 12px;
+    opacity: 0.6;
+  }
+  50% {
+    height: 24px;
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 0.7;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .humidity-card {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
   
   .humidity-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #0077b6;
+    font-size: 2.5rem;
   }
   
+  .humidity-percentage {
+    font-size: 1.5rem;
+  }
+  
+  .humidity-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
