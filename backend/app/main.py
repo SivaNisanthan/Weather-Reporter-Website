@@ -19,9 +19,7 @@ if ENV == "development":
         os.getenv("DEVELOPMENT_FRONT_END_IP"),
     ]
 else:  # production
-    origins = [
-        os.getenv("PRODUCTION_FRONT_END_URL")   
-    ]
+    origins = ["*"] 
 
 # Add CORS middleware
 app.add_middleware(
