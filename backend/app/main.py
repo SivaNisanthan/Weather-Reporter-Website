@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 # # logging 
-# import logging
+import logging
 # LOG_DIR = "logs"
 # os.makedirs(LOG_DIR, exist_ok=True)  # Ensure logs folder exists
 
