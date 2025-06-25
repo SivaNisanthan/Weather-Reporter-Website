@@ -1,27 +1,15 @@
 import os
 import httpx
 import logging
-# from dotenv import load_dotenv
 from typing import Dict
 
 logger = logging.getLogger(__name__)
 
-# Load environment variables from .env
-# load_dotenv()
-
-# Read the API key from environment variables
+# Read API configuration from environment
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
-
-# Base URL of the weather API
 WEATHER_API_URL = os.getenv("WEATHER_API_URL")
 
-
-
 async def get_current_weather(city: str) -> Dict:
-    """
-    Fetches current weather data for the given city from weatherapi.com
-    and returns a simplified dictionary with selected fields.
-    """
     if not WEATHER_API_KEY:
         logger.critical("WEATHER_API_KEY is missing in environment")
         raise ValueError("Missing WEATHER_API_KEY in environment")
@@ -61,7 +49,7 @@ async def get_current_weather(city: str) -> Dict:
             "error": "Failed to fetch weather data",
             "details": str(e)
         }
-    
+
     except Exception as e:
         logger.error(f"Unexpected error in weatherService: {str(e)}")
         return {

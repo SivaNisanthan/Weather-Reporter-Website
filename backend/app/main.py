@@ -1,42 +1,35 @@
-from fastapi import FastAPI
-from dotenv import load_dotenv
-import os
+import logging  # Import logging first
 
-# logging 
-import logging
-LOG_DIR = "logs"
-os.makedirs(LOG_DIR, exist_ok=True)  # Ensure logs folder exists
-
+#Configure logging to stdout (Vercel-compatible)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler(f"{LOG_DIR}/app.log"),
-        logging.StreamHandler()
-    ]
+    handlers=[logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
 
-# Load environment variables from .env file
-load_dotenv()
-
+from fastapi import FastAPI
+from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.weather import router as hello_router
 import os
 
+# Load environment variables
+load_dotenv()
+
 app = FastAPI()
 logger.info("FastAPI application instance created")
 
-#Dynamically allow origins depending on environment
+# Dynamically allow origins
 ENV = os.getenv("ENV", "development")
 
 if ENV == "development":
     origins = [
-        os.getenv("DEVELOPMENT_FRONT_END_URL"),  # Vite frontend dev
+        os.getenv("DEVELOPMENT_FRONT_END_URL"),
         os.getenv("DEVELOPMENT_FRONT_END_IP"),
     ]
-else:  # production
-    origins = ["https://weather-reporter-website-lffj.vercel.app/"] 
+else:
+    origins = ["https://weather-reporter-website-lffj.vercel.app"]
 
 logger.info(f"CORS enabled for environment: {ENV}")
 logger.info(f"Allowed origins: {origins}")
@@ -52,6 +45,3 @@ app.add_middleware(
 
 # Include API routes
 app.include_router(hello_router, prefix="/api")
-
-
-

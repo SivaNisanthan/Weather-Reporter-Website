@@ -2,8 +2,8 @@ from fastapi import APIRouter, Query
 from app.services.weatherService import get_current_weather
 import logging
 
-router = APIRouter()
 logger = logging.getLogger(__name__)
+router = APIRouter()
 
 @router.get("/weather")
 async def get_weather(city: str = Query(default="Colombo")):
