@@ -110,9 +110,8 @@ npm run dev
 ## Future Improvements
 
 - Add Redis caching to avoid hitting the API multiple times within the same 15-minute window  
-- Make UI more mobile responsive  
-- Add country-based filtering or full city search (via weather API autocomplete)  
- 
+- Make UI more responsive  
+- Add country-based filtering or full city search
 
 ---
 
