@@ -21,7 +21,7 @@ import os
 
 
 app = FastAPI()
-logger.info("🚀 FastAPI application instance created")
+logger.info("FastAPI application instance created")
 
 # Dynamically allow origins
 ENV = os.getenv("ENV", "development")
