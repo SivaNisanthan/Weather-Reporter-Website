@@ -2,10 +2,16 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 import os
 
-# logging 
-import logging
-LOG_DIR = "logs"
-os.makedirs(LOG_DIR, exist_ok=True)  # Ensure logs folder exists
+# # logging 
+# import logging
+# LOG_DIR = "logs"
+# os.makedirs(LOG_DIR, exist_ok=True)  # Ensure logs folder exists
+
+# Logging to stdout (Vercel dashboard)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.info("FastAPI app starting")
+
 
 logging.basicConfig(
     level=logging.INFO,
