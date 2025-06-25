@@ -10,15 +10,18 @@ logger = logging.getLogger(__name__)
 
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from fastapi.middleware.cors import CORSMiddleware
-from app.routers.weather import router as hello_router
-import os
 
 # Load environment variables
 load_dotenv()
 
+from fastapi.middleware.cors import CORSMiddleware
+from app.routers.weather import router as hello_router
+import os
+
+
+
 app = FastAPI()
-logger.info("FastAPI application instance created")
+logger.info("🚀 FastAPI application instance created")
 
 # Dynamically allow origins
 ENV = os.getenv("ENV", "development")
