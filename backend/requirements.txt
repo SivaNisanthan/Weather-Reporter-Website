@@ -3,3 +3,5 @@ uvicorn==0.34.0
 python-dotenv
 httpx
 pydantic
+redis
+upstash-redis

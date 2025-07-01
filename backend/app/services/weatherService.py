@@ -3,6 +3,8 @@ import httpx
 import logging
 from fastapi import HTTPException
 from app.schemas.weather_schema import WeatherResponse
+from app.core.redis_client import redis_client
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -10,11 +12,22 @@ logger = logging.getLogger(__name__)
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 WEATHER_API_URL = os.getenv("WEATHER_API_URL")
 
+# CACHE_TTL = 900
+
 async def get_current_weather(city: str) -> WeatherResponse:
     """
     Fetches current weather data for the given city using weatherapi.com.
     Returns a structured WeatherResponse.
     """
+
+    city = city.lower().strip()  # Normalize
+    cache_key = f"weather:{city}"
+
+    cached = redis_client.get(cache_key)
+
+    if cached:
+        logger.info(f"Returning cached weather data for {city}")
+        return WeatherResponse.model_validate_json(cached)  #Convert JSON string to object
 
     if not WEATHER_API_KEY:
         logger.critical("Missing WEATHER_API_KEY in environment")
@@ -40,8 +53,18 @@ async def get_current_weather(city: str) -> WeatherResponse:
         current = data.get("current", {})
         location = data.get("location", {})
 
+        # Parse timestamps from the API response
+        try:
+            dt_current = datetime.strptime(location.get("localtime"), "%Y-%m-%d %H:%M")
+            dt_updated = datetime.strptime(current.get("last_updated"), "%Y-%m-%d %H:%M")
+            age_seconds = int((dt_current - dt_updated).total_seconds())
+            CACHE_TTL = max(0, 900 - age_seconds)  # Ensure it's not negative
+        except Exception as e:
+            logger.warning(f"Failed to parse timestamps: {e}")
+            CACHE_TTL = 900  # Fallback to full cache duration
+
         # Return validated schema
-        return WeatherResponse(
+        weather_data  = WeatherResponse(
             date_current=location.get("localtime"),
             date_last_updated=current.get("last_updated"),
             city=location.get("name"),
@@ -54,6 +77,8 @@ async def get_current_weather(city: str) -> WeatherResponse:
             condition=current.get("condition", {}).get("text"),
             icon=current.get("condition", {}).get("icon"),
         )
+        redis_client.setex(cache_key, CACHE_TTL, weather_data.model_dump_json())
+        return weather_data
 
     except httpx.HTTPStatusError as e:
         logger.error(f"HTTP status error from Weather API: {e.response.status_code}")
