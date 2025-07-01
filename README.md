@@ -8,8 +8,9 @@ A simple, responsive weather reporting web application built with React (Vite) a
 
 - City search with autocomplete functionality  
 - Real-time weather data fetched from WeatherAPI.com  
-- Auto-update based on `last_updated` timestamp (no unnecessary refreshes)  
-- Loading spinner while fetching data  
+- Smart auto-update using `last_updated` timestamp 
+- Loading spinner while fetching data
+- Redis caching (via Upstash) prevents repeated API calls within a 15-minute window  
 - Last updated time shown to the user  
 - Timeout and error handling for API failures  
 - Proper backend logging (request, success, error)  
@@ -46,7 +47,8 @@ Weather-Reporter-Website/
 
 - On page load, the app fetches weather data for the default city (**Colombo**).  
 - Users can search and select other cities from the search box.  
-- Data auto-refreshes only if newer data is available (based on `last_updated` time).  
+- Data auto-refreshes only if newer data is available (based on `last_updated` time).
+- Redis is used to cache weather responses per city with a dynamic TTL based on the freshness of the `last_updated` value from the API.
 - WeatherAPI.com limits updates to every 15 minutes.  
 - Backend logs requests, errors, and external API issues for easy monitoring.  
 
@@ -78,6 +80,7 @@ WEATHER_API_URL=http://api.weatherapi.com/v1/current.json
 ENV=development
 DEVELOPMENT_FRONT_END_URL=http://localhost:5173
 DEVELOPMENT_FRONT_END_IP=http://127.0.0.1:5173
+REDIS_URL=rediss://:your_upstash_password@your-upstash-url:port
 ```
 
 Run backend:
@@ -106,10 +109,16 @@ npm run dev
 ```
 
 ---
+## Technologies Used
+
+- React (Vite)
+- FastAPI
+- Redis (via Upstash)
+- Pydantic v2
+- httpx (for async API calls)
 
 ## Future Improvements
 
-- Add Redis caching to avoid hitting the API multiple times within the same 15-minute window  
 - Make UI more responsive  
 - Add country-based filtering or full city search
 
